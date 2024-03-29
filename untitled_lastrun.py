@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.2.3),
-    on March 29, 2024, at 00:28
+    on มีนาคม 29, 2024, at 11:19
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -106,7 +106,7 @@ def setupData(expInfo, dataDir=None):
     thisExp = data.ExperimentHandler(
         name=expName, version='',
         extraInfo=expInfo, runtimeInfo=None,
-        originPath='C:\\Users\\UserPC\\Desktop\\New folder\\code\\untitled_lastrun.py',
+        originPath='C:\\Users\\POOM\\Desktop\\MusEmotion-main\\untitled_lastrun.py',
         savePickle=True, saveWideText=True,
         dataFileName=dataDir + os.sep + filename, sortColumns='time'
     )
@@ -323,25 +323,18 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         ori=0.0, pos=(0, 0), size=(0.2, 0.2),
         color=[1,1,1], colorSpace='rgb', opacity=None,
         flipHoriz=False, flipVert=False,
-        texRes=128.0, interpolate=True, depth=0.0)
+        texRes=128.0, interpolate=True, depth=-1.0)
     audiosample = sound.Sound('A', secs=-1, stereo=True, hamming=True,
         name='audiosample')
     audiosample.setVolume(1.0)
     prog = visual.Progress(
         win, name='prog',
         progress=0.0,
-        pos=(0, 0), size=(0.5, 0.5), anchor='center left', units='height',
+        pos=(0, -0.2), size=(1, 0.05), anchor='center', units='height',
         barColor='white', backColor=None, borderColor='white', colorSpace='rgb',
         lineWidth=4.0, opacity=1.0, ori=0.0,
-        depth=-2
+        depth=-3
     )
-    textt = visual.TextStim(win=win, name='textt',
-        text=(core.getTime() - textt.tStart)/4,
-        font='Open Sans',
-        pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-3.0);
     
     # --- Initialize components for Routine "rating" ---
     EmotionRating = visual.Slider(win=win, name='EmotionRating',
@@ -518,11 +511,15 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
         continueRoutine = True
         # update component parameters for each repeat
         thisExp.addData('music.started', globalClock.getTime())
+        # Run 'Begin Routine' code from code
+        timer = core.Clock()  # Create a clock object to track time
+        start_time = timer.getTime()  # Get the initial time
+        
         audiosample.setSound(AudioSample, secs=4, hamming=True)
         audiosample.setVolume(1.0, log=False)
         audiosample.seek(0)
         # keep track of which components have finished
-        musicComponents = [ImageMegaphone, audiosample, prog, textt]
+        musicComponents = [ImageMegaphone, audiosample, prog]
         for thisComponent in musicComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -544,6 +541,8 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             tThisFlipGlobal = win.getFutureFlipTime(clock=None)
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
+            # Run 'Each Frame' code from code
+            duration = timer.getTime() - start_time  
             
             # *ImageMegaphone* updates
             
@@ -609,8 +608,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                 prog.tStart = t  # local t and not account for scr refresh
                 prog.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(prog, 'tStartRefresh')  # time at next scr refresh
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'prog.started')
                 # update status
                 prog.status = STARTED
                 prog.setAutoDraw(True)
@@ -618,7 +615,7 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             # if prog is active this frame...
             if prog.status == STARTED:
                 # update params
-                prog.setProgress((core.getTime() - prog.tStart)/4, log=False)
+                prog.setProgress(duration/4, log=False)
             
             # if prog is stopping this frame...
             if prog.status == STARTED:
@@ -627,44 +624,9 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     # keep track of stop time/frame for later
                     prog.tStop = t  # not accounting for scr refresh
                     prog.frameNStop = frameN  # exact frame index
-                    # add timestamp to datafile
-                    thisExp.timestampOnFlip(win, 'prog.stopped')
                     # update status
                     prog.status = FINISHED
                     prog.setAutoDraw(False)
-            
-            # *textt* updates
-            
-            # if textt is starting this frame...
-            if textt.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                # keep track of start time/frame for later
-                textt.frameNStart = frameN  # exact frame index
-                textt.tStart = t  # local t and not account for scr refresh
-                textt.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(textt, 'tStartRefresh')  # time at next scr refresh
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'textt.started')
-                # update status
-                textt.status = STARTED
-                textt.setAutoDraw(True)
-            
-            # if textt is active this frame...
-            if textt.status == STARTED:
-                # update params
-                pass
-            
-            # if textt is stopping this frame...
-            if textt.status == STARTED:
-                # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > textt.tStartRefresh + 1.0-frameTolerance:
-                    # keep track of stop time/frame for later
-                    textt.tStop = t  # not accounting for scr refresh
-                    textt.frameNStop = frameN  # exact frame index
-                    # add timestamp to datafile
-                    thisExp.timestampOnFlip(win, 'textt.stopped')
-                    # update status
-                    textt.status = FINISHED
-                    textt.setAutoDraw(False)
             
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):
